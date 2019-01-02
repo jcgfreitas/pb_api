@@ -27,6 +27,7 @@ const (
 	queryGreaterValue   = "gv"
 )
 
+// Repository is the abstraction over the repository layer that handles db requests
 type Repository interface {
 	NewCoupon(APIc domain.APICoupon) error
 	GetCouponByID(id uint, c *domain.Coupon) error
@@ -42,16 +43,20 @@ type Repository interface {
 	QueryGTValueFunction(v uint) func() error
 }
 
+// Service is the layer between the handlers and the repository. It mainly deals with validation and default values
 type Service struct {
 	repo   Repository
 	logger *logrus.Logger
 }
 
+// NewService is the Service constructor
 func NewService(repository Repository, logger *logrus.Logger) *Service {
 	logger.SetReportCaller(true)
 	return &Service{repo: repository, logger: logger}
 }
 
+// CreateCoupon validates the coupon creation and requests the creation of the coupon record to the repository
+// It returns a InvalidArgsError if it fails the validation
 func (s *Service) CreateCoupon(APIc domain.APICoupon) error {
 	if err := createCouponValidation(APIc); err != nil {
 		s.logger.WithError(err).Debug("failed to create Coupon")
@@ -60,14 +65,18 @@ func (s *Service) CreateCoupon(APIc domain.APICoupon) error {
 	return s.repo.NewCoupon(APIc)
 }
 
+// GetCoupon request the coupon with a given ID to the repository
 func (s *Service) GetCoupon(id uint, c *domain.Coupon) error {
 	return s.repo.GetCouponByID(id, c)
 }
 
+// DeleteCoupon requests the deletion of a coupon with a given ID to the repository
 func (s *Service) DeleteCoupon(id uint) error {
 	return s.repo.DeleteCoupon(id)
 }
 
+// UpdateCoupon validates and updates a coupon with the giv4n Id to the repository
+// It returns a InvalidArgsError if it fails the validation
 func (s *Service) UpdateCoupon(id uint, APIc domain.APICoupon) error {
 	if err := updateCouponValidation(APIc); err != nil {
 		s.logger.WithError(err).Debug("failed to update Coupon")
@@ -76,6 +85,24 @@ func (s *Service) UpdateCoupon(id uint, APIc domain.APICoupon) error {
 	return s.repo.UpdateCoupon(id, APIc)
 }
 
+// GetCoupons validates query arguments and executes the query in the repository
+// args uses the same type as the url.Values from http.Request
+//
+// The accepted args keys are the following:
+//
+//  queryName           = "name"
+//	queryBrand          = "brand"
+//	queryValue          = "value"
+//	queryLimit          = "limit"
+//	queryPage           = "page"
+//	queryLesserExpiry   = "le"
+//	queryGreaterExpiry  = "ge"
+//	queryLesserCreated  = "lc"
+//	queryGreaterCreated = "gc"
+//	queryLesserValue    = "lv"
+//	queryGreaterValue   = "gv"
+//
+// It returns a InvalidArgsError if it fails the validation
 func (s *Service) GetCoupons(coupons *[]domain.Coupon, args map[string][]string) error {
 	var funcs []func() error
 	query := make(map[string]interface{})

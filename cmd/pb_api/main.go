@@ -28,6 +28,7 @@ func main() {
 	password := flag.String("password", "password1", "postgres db password")
 	port := flag.String("port", "5432", "postgres db port number")
 	debug := flag.Bool("debug", true, "debug logger level")
+	drop := flag.Bool("dropTable", false, "drop coupons table rows")
 	flag.Parse()
 
 	// start logger
@@ -49,8 +50,11 @@ func main() {
 	defer db.Close()
 
 	// create handler and its chained dependencies
-	gormDB := repository.New(db)
-	s := service.NewService(gormDB, logger)
+	repo := repository.New(db)
+	if *drop {
+		repo.Reset()
+	}
+	s := service.NewService(repo, logger)
 	h := handlers.NewHandlers(s, logger)
 
 	// router creation and assignment of handlers
