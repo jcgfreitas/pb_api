@@ -8,13 +8,13 @@
 
 This endpoint returns a coupon
 
-#####Parameters
+##### Parameters
 
 | Parameters | Required | Description      | Param type | Data type |
 |------------|----------|------------------|------------|:---------:|
 |     id     |    yes   | Coupon unique id |    path    |    uint   |
 
-#####Http Status
+##### Http Status
 
 |         Status        | Code |
 |:---------------------:|------|
@@ -22,9 +22,9 @@ This endpoint returns a coupon
 |        NotFound       |  404 |
 | Internal Server Error |  500 |
 
-#####Curl Example
+##### Curl Example
 
-curl -X GET http://localhost:8080/coupons/1 -i
+`curl -X GET http://localhost:8080/coupons/1 -i`
 ```
 HTTP/1.1 200 OK
 Date: Wed, 02 Jan 2019 18:30:30 GMT
@@ -51,7 +51,7 @@ Content-Type: text/plain; charset=utf-8
 
 This endpoint creates an coupon
 
-#####Parameters
+##### Parameters
 
 | Parameters | Required | Description        | Param type | Data type |
 |------------|----------|--------------------|------------|:---------:|
@@ -62,7 +62,7 @@ This endpoint creates an coupon
 
 expiry needs to be in `time.RFC3339` format
 
-#####Http Status
+##### Http Status
 
 |         Status        | Code |
 |:---------------------:|------|
@@ -70,8 +70,8 @@ expiry needs to be in `time.RFC3339` format
 |       BadRequest      |  400 |
 | Internal Server Error |  500 |
 
-#####Curl Example
-curl -X POST --data '{"name" : "CouponName","brand" : "CouponBrand","value" : 10,"expiry" : "2020-01-01T23:59:59Z"}' http://localhost:8080/coupons -i
+##### Curl Example
+`curl -X POST --data '{"name" : "CouponName","brand" : "CouponBrand","value" : 10,"expiry" : "2020-01-01T23:59:59Z"}' http://localhost:8080/coupons -i`
 
 ```
 HTTP/1.1 201 Created
@@ -86,13 +86,13 @@ Content-Length: 0
 
 This endpoint deletes a coupon
 
-#####Parameters
+##### Parameters
 
 | Parameters | Required | Description      | Param type | Data type |
 |------------|----------|------------------|------------|:---------:|
 |     id     |    yes   | Coupon unique id |    path    |    uint   |
 
-#####Http Status
+##### Http Status
 
 |         Status        | Code |
 |:---------------------:|------|
@@ -100,9 +100,9 @@ This endpoint deletes a coupon
 |        NotFound       |  404 |
 | Internal Server Error |  500 |
 
-#####Curl Example
+##### Curl Example
 
-curl -X DELETE http://localhost:8080/coupons/1 -i
+`curl -X DELETE http://localhost:8080/coupons/1 -i`
 ```
 HTTP/1.1 200 OK
 Date: Wed, 02 Jan 2019 19:13:40 GMT
@@ -115,7 +115,7 @@ Content-Length: 0
 
 This endpoint updates a coupon
 
-#####Parameters
+##### Parameters
 
 | Parameters | Required | Description        | Param type | Data type |
 |------------|----------|--------------------|------------|:---------:|
@@ -127,7 +127,7 @@ This endpoint updates a coupon
 
 At least one of the body's elements is required
 
-#####Http Status
+##### Http Status
 
 |         Status        | Code |
 |:---------------------:|------|
@@ -136,9 +136,9 @@ At least one of the body's elements is required
 |        NotFound       |  404 |
 | Internal Server Error |  500 |
 
-#####Curl Example
+##### Curl Example
 
-curl -X POST --data '{"name" : "CouponName","brand" : "CouponBrand","value" : 10,"expiry" : "2020-01-01T23:59:59Z"}' http://localhost:8080/coupons/4 -i
+`curl -X POST --data '{"name" : "CouponName","brand" : "CouponBrand","value" : 10,"expiry" : "2020-01-01T23:59:59Z"}' http://localhost:8080/coupons/4 -i`
 ```
 HTTP/1.1 200 OK
 Date: Wed, 02 Jan 2019 19:19:27 GMT
@@ -152,7 +152,7 @@ Content-Length: 0
 
 This endpoint queries coupons and returns a slice of coupons
 
-#####Parameters
+##### Parameters
 
 | Parameters | Required |                Description/Query               | Param type | Data type |
 |------------|:--------:|:----------------------------------------------:|------------|:---------:|
@@ -168,7 +168,7 @@ This endpoint queries coupons and returns a slice of coupons
 |     lv     |    no    |       Lesser Than Value `WHERE value < ?`      |    query   |    uint   |
 |     gv     |    no    |       Greater Than Value `WHERE value > ?`     |    query   |    uint   |
 
-#####Http Status
+##### Http Status
 
 |         Status        | Code |
 |:---------------------:|------|
@@ -176,9 +176,9 @@ This endpoint queries coupons and returns a slice of coupons
 |       BadRequest      |  400 |
 | Internal Server Error |  500 |
 
-#####Curl Example
+##### Curl Example
 
-curl -X GET http://localhost:8080/coupons?value=5 -i
+`curl -X GET http://localhost:8080/coupons?value=5 -i`
 ```
 HTTP/1.1 200 OK
 Date: Wed, 02 Jan 2019 20:00:43 GMT
