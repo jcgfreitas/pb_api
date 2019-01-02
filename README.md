@@ -111,7 +111,7 @@ Content-Length: 0
 
 #### Update Coupon
 
-##### POST /coupons/{id:[0-9]+}
+##### PUT /coupons/{id:[0-9]+}
 
 This endpoint updates a coupon
 
@@ -138,7 +138,7 @@ At least one of the body's elements is required
 
 ##### Curl Example
 
-`curl -X POST --data '{"name" : "CouponName","brand" : "CouponBrand","value" : 10,"expiry" : "2020-01-01T23:59:59Z"}' http://localhost:8080/coupons/4 -i`
+`curl -X PUT --data '{"name" : "CouponName","brand" : "CouponBrand","value" : 10,"expiry" : "2020-01-01T23:59:59Z"}' http://localhost:8080/coupons/4 -i`
 ```
 HTTP/1.1 200 OK
 Date: Wed, 02 Jan 2019 19:19:27 GMT

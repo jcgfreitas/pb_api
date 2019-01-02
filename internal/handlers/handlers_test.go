@@ -275,13 +275,13 @@ func TestUpdateCouponHandler(t *testing.T) {
 func testUpdateCouponDecodeFailure(t *testing.T) {
 	h := startHandlers(t)
 
-	r, err := http.NewRequest("POST", "/coupons/4", http.NoBody)
+	r, err := http.NewRequest("PUT", "/coupons/4", http.NoBody)
 	if err != nil {
 		t.Fatal("failed to create http request")
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
+	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("PUT")
 
 	router.ServeHTTP(h.w, r)
 	assert.Equal(t, h.w.Code, http.StatusBadRequest)
@@ -291,13 +291,13 @@ func testUpdateCouponSuccess(t *testing.T) {
 	h := startHandlers(t)
 	defer h.ctrl.Finish()
 
-	r, err := http.NewRequest("POST", "/coupons/4", marshalAPICoupon(t))
+	r, err := http.NewRequest("PUT", "/coupons/4", marshalAPICoupon(t))
 	if err != nil {
 		t.Fatal("failed to create http request")
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
+	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("PUT")
 
 	h.mock.EXPECT().UpdateCoupon(uint(4), gomock.Any()).Return(nil)
 
@@ -324,13 +324,13 @@ func testUpdateCouponNotFound(t *testing.T) {
 	h := startHandlers(t)
 	defer h.ctrl.Finish()
 
-	r, err := http.NewRequest("POST", "/coupons/4", marshalAPICoupon(t))
+	r, err := http.NewRequest("PUT", "/coupons/4", marshalAPICoupon(t))
 	if err != nil {
 		t.Fatal("failed to create http request")
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
+	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("PUT")
 
 	h.mock.EXPECT().UpdateCoupon(uint(4), gomock.Any()).Return(domain.NewCouponNotFoundError())
 
@@ -342,13 +342,13 @@ func testUpdateCouponBadRequest(t *testing.T) {
 	h := startHandlers(t)
 	defer h.ctrl.Finish()
 
-	r, err := http.NewRequest("POST", "/coupons/4", marshalAPICoupon(t))
+	r, err := http.NewRequest("PUT", "/coupons/4", marshalAPICoupon(t))
 	if err != nil {
 		t.Fatal("failed to create http request")
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
+	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("PUT")
 
 	h.mock.EXPECT().UpdateCoupon(uint(4), gomock.Any()).Return(domain.NewInvalidArgsError(""))
 
@@ -360,13 +360,13 @@ func testUpdateCouponServiceError(t *testing.T) {
 	h := startHandlers(t)
 	defer h.ctrl.Finish()
 
-	r, err := http.NewRequest("POST", "/coupons/4", marshalAPICoupon(t))
+	r, err := http.NewRequest("PUT", "/coupons/4", marshalAPICoupon(t))
 	if err != nil {
 		t.Fatal("failed to create http request")
 	}
 
 	router := mux.NewRouter()
-	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
+	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("PUT")
 
 	h.mock.EXPECT().UpdateCoupon(uint(4), gomock.Any()).Return(errors.New(""))
 

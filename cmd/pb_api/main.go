@@ -63,7 +63,7 @@ func main() {
 	r.HandleFunc(h.GetCouponsPath(), h.GetCouponsHandler).Methods("GET")
 	r.HandleFunc(h.GetCouponPath(), h.GetCouponHandler).Methods("GET")
 	r.HandleFunc(h.DeleteCouponPath(), h.DeleteCouponHandler).Methods("DELETE")
-	r.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
+	r.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("PUT")
 
 	srv := &http.Server{
 		Addr: "0.0.0.0:8080",
