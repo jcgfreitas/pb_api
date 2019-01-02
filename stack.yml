@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+
+# default db user and database is postgres
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password1
+    ports:
+      - 5432:5432
