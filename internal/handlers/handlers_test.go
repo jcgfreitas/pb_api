@@ -270,7 +270,6 @@ func testDeleteCouponServiceError(t *testing.T) {
 func TestUpdateCouponHandler(t *testing.T) {
 	t.Run("decodeFails", testUpdateCouponDecodeFailure)
 	t.Run("success", testUpdateCouponSuccess)
-	t.Run("badID", testUpdateCouponBadID)
 	t.Run("notFound", testUpdateCouponNotFound)
 	t.Run("serviceError", testUpdateCouponServiceError)
 	t.Run("badRequest", testUpdateCouponBadRequest)
@@ -307,21 +306,6 @@ func testUpdateCouponSuccess(t *testing.T) {
 
 	router.ServeHTTP(h.w, r)
 	assert.Equal(t, h.w.Code, http.StatusOK)
-}
-
-func testUpdateCouponBadID(t *testing.T) {
-	h := startHandlers(t)
-
-	r, err := http.NewRequest("POST", "/coupons/err", http.NoBody)
-	if err != nil {
-		t.Fatal("failed to create http request")
-	}
-
-	router := mux.NewRouter()
-	router.HandleFunc(h.UpdateCouponPath(), h.UpdateCouponHandler).Methods("POST")
-
-	router.ServeHTTP(h.w, r)
-	assert.Equal(t, h.w.Code, http.StatusBadRequest)
 }
 
 func marshalAPICoupon(t *testing.T) io.Reader {
