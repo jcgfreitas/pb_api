@@ -1,13 +1,14 @@
+// +build integration
+
 package repository
 
 import (
 	"testing"
 	"time"
 
-	"gotest.tools/assert"
-
 	"github.com/jcgfreitas/pb_api/internal/domain"
 	"github.com/jcgfreitas/pb_api/pkg/gormdb/postgres"
+	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -144,7 +145,7 @@ func testDelete(t *testing.T) {
 	repo := singleRecordDB(t)
 	defer repo.Close()
 
-	assert.NilError(t, repo.DeleteCoupon(1))
+	assert.Nil(t, repo.DeleteCoupon(1))
 }
 
 func testDeleteDoesNotExist(t *testing.T) {
@@ -169,7 +170,7 @@ func testUpdateEmptyCoupon(t *testing.T) {
 	defer repo.Close()
 	a := domain.APICoupon{}
 
-	assert.NilError(t, repo.UpdateCoupon(1, a))
+	assert.Nil(t, repo.UpdateCoupon(1, a))
 }
 
 func testUpdateName(t *testing.T) {
@@ -179,7 +180,7 @@ func testUpdateName(t *testing.T) {
 		Name: &Name,
 	}
 
-	assert.NilError(t, repo.UpdateCoupon(1, a))
+	assert.Nil(t, repo.UpdateCoupon(1, a))
 
 	var c domain.Coupon
 	repo.db.Find(&c, 1)
@@ -193,7 +194,7 @@ func testUpdateBrand(t *testing.T) {
 		Brand: &Brand,
 	}
 
-	assert.NilError(t, repo.UpdateCoupon(1, a))
+	assert.Nil(t, repo.UpdateCoupon(1, a))
 
 	var c domain.Coupon
 	repo.db.Find(&c, 1)
@@ -207,7 +208,7 @@ func testUpdateValue(t *testing.T) {
 		Value: &Value,
 	}
 
-	assert.NilError(t, repo.UpdateCoupon(1, a))
+	assert.Nil(t, repo.UpdateCoupon(1, a))
 
 	var c domain.Coupon
 	repo.db.Find(&c, 1)
@@ -221,7 +222,7 @@ func testUpdateExpiry(t *testing.T) {
 		Expiry: &Time,
 	}
 
-	assert.NilError(t, repo.UpdateCoupon(1, a))
+	assert.Nil(t, repo.UpdateCoupon(1, a))
 
 	var c domain.Coupon
 	repo.db.Find(&c, 1)
@@ -238,7 +239,7 @@ func testFullUpdate(t *testing.T) {
 		Expiry: &Time,
 	}
 
-	assert.NilError(t, repo.UpdateCoupon(1, a))
+	assert.Nil(t, repo.UpdateCoupon(1, a))
 
 	var c domain.Coupon
 	repo.db.Find(&c, 1)

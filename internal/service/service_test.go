@@ -3,13 +3,11 @@ package service
 import (
 	"time"
 
-	"github.com/stretchr/testify/assert"
-
-	"github.com/jcgfreitas/pb_api/internal/domain"
-
 	"github.com/golang/mock/gomock"
+	"github.com/jcgfreitas/pb_api/internal/domain"
 	"github.com/jcgfreitas/pb_api/mocks"
 	"github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 
 	"testing"
 )

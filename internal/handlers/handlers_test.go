@@ -10,15 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gorilla/mux"
-
-	"gotest.tools/assert"
-
-	"github.com/jcgfreitas/pb_api/internal/domain"
-
 	"github.com/golang/mock/gomock"
+	"github.com/gorilla/mux"
+	"github.com/jcgfreitas/pb_api/internal/domain"
 	"github.com/jcgfreitas/pb_api/mocks"
 	"github.com/sirupsen/logrus"
+	"github.com/stretchr/testify/assert"
 )
 
 type TestHandlers struct {
